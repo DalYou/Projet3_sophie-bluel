@@ -32,8 +32,10 @@ formulaireCon.addEventListener("submit", function(event) {
             localStorage.setItem("token", data.token);
             //redirection vers une nouvelle page après connexion validée
             location.replace("index.html");
-            localStorage.removeItem("token");
-            window.location.replace("index.html");
+
+
+            //localStorage.removeItem("token");
+            //window.location.replace("index.html");
         })
         .catch((err) => {
             console.log("My error", err);

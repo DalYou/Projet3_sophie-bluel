@@ -12,6 +12,10 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
+<div class = "barrepub connecte">
+	<img src="assets/icons/modeedition.png" alt="modifier">
+	<button class="publier">Publier les changements</button>
+</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -27,7 +31,7 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
-				<div class = "modifier">
+				<div class = "modifier connecte">
 					<a href="#">
 						<i class="fas fa-regular fa-pen-to-square fa-lg"></i>
 					</a>
@@ -49,12 +53,12 @@
 			<button class="btn_trier" id="btnhotelsrestaurants">Hôtels & restaurants</button>
 		</div>
 		<div class="projets">
-		<h2>Mes Projets</h2>
-			<div class="liens">
-				<a href="#modifier">
-				<i class="fas fa-regular fa-pen-to-square fa-lg"></i>
+			<h2>Mes Projets</h2>
+			<div class="liens connecte">
+				<a href="#modal1" class="js-modal">
+					<i class="fas fa-regular fa-pen-to-square fa-lg"></i>
+					modifier
 				</a>
-				<a href="#modal1" class="js-modal">modifier</a>
 			</div>
 		</div>
 			<div class="gallery">
@@ -79,12 +83,28 @@
 			<h1 id="titlemodal">Galerie photo</h1>
 			<div class="gallery_modal"></div>
 			<div class="button-container">
-				<a href="modal2.html#modal2">
-				<input class="btn_photo" type="submit" value="Ajouter une photo">
-				</a>
+				<a href="index.html#modal2" id="btn_photo" class="btn_photo">Ajouter une photo</a>
 				<button class="btn_delete">Supprimer la galerie</button>
 			</div>
 		</div>
+		<div class="js-modal" id="modal2" aria-hidden="true" role="dialog" aria-modal="false" style="display:none;">
+			<form class="formulaire" action="#" method="post">
+				<div class="btnModal">
+					<button class="modal2Return">&larr;</button>
+					<button class="modal2Close">&times;</button>
+				</div>
+				<label class="image">Ajout photo</label>
+					<div class="image">
+						<img class="Iconimages" src=".assets/icons/icon-img.png" alt="image">
+						<label class="ajoutPhotos" type="file">+ Ajouter photo</label>
+					</div>
+				<label class="title">Titre</label>
+				<input type="text" name="title" id="title">
+				<label class="category">Catégorie</label>
+				<select id="category" name="category"></select>
+				<input id="btnValiderModal2" type="submit" value="Valider">
+			</form>
+		</div> 
 	</aside>
 </main>
 <footer>
@@ -94,7 +114,7 @@
 		</ul>
 	</nav>
 </footer>
-<script type="module" src="JS\galerie.js"></script>
-<script src="JS\modal.js"></script>
+<script type="module" src="js/galerie.js"></script>
+<script src="js/modal.js"></script>
 </body>
 </html>

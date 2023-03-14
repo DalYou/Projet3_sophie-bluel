@@ -8,14 +8,17 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="#modal2" id="modal2Open" aria-hidden="true" role="dialog" aria-modal="false">
+    <div class="modal2Open" id="modal2" aria-hidden="true" role="dialog" aria-modal="false">
         <form class="formulaire" action="#" method="post">
             <div class="btnModal">
                 <button class="modal2Return">&larr;</button>
                 <button class="modal2Close">&times;</button>
             </div>
             <label class="image">Ajout photo</label>
-            <input type="file" id="image" name="image">
+                <div class="image">
+                    <img class="Iconimages" src=".assets/icons/icon-img.png" alt="image">
+                    <label class="ajoutPhotos" type="file">+ Ajouter photo</label>
+                </div>
             <label class="title">Titre</label>
             <input type="text" name="title" id="title">
             <label class="category">Catégorie</label>

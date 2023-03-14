@@ -5,7 +5,18 @@ let categoryId = 0;
 // Récupération de la galerie depuis le BackEnd 
 const works = await fetch("http://localhost:5678/api/works");
 const jsonGallery = await works.json();
-  console.log(jsonGallery);
+console.log(jsonGallery);
+
+//Vérifier si user est connecté
+try{
+  const token = JSON.parse(localStorage.getItem("bearer"));
+  const connecte = token ? "flex" : "none";
+  document.querySelectorAll(".connecte").forEach((element) => {
+    element.style.display = connecte;
+  });
+}catch (error){
+ console.error(error);
+}
 
 //Déclaration de la fonction générer la gallerie page index
 function genererProjets(jsonGallery) {
@@ -61,12 +72,14 @@ boutonHotelsRestaurants.addEventListener("click", function () {
 
 // Affichage du bouton logout
 
-function AdminMode() {
-    if (localStorage.getItem('token')) {
-      const login = document.querySelector("nav > ul > li > a");
-      login.innerHTML = "<a href=index.html>logout</a>";
-    }; 
-};
+//function AdminMode() {
+    //if (localStorage.getItem('token')) {
+      //const login = document.querySelector("nav > ul > li > a");
+      //login.innerHTML = "<a href=index.html>logout</a>";
+    //}; 
+//};
+
+//AdminMode();
 
 /**Affichage de la gallerie dans la Modale **/
 
@@ -103,11 +116,11 @@ function genererModal(jsonGallery) {
     figureElement.appendChild(supprButton);
 
     // Création du bouton "déplacer"//
-const PremImage = document.queselector(".gallery_Modal");
-  console.log= "PremImage"
-const buttonDeplacer = document.createElement("i");
-    buttonDeplacer.classList.add("fa-solid", "fa-up-down-left-right");
-    PremImage.prepend(buttonDeplacer);  
+//const PremImage = document.queselector(".gallery_Modal");
+  //console.log= "PremImage"
+//const buttonDeplacer = document.createElement("i");
+    //buttonDeplacer.classList.add("fa-solid", "fa-up-down-left-right");
+    //PremImage.prepend(buttonDeplacer);  
   };
 };
   
@@ -138,36 +151,42 @@ function deleteGallery() {
   })
 }
 
+// // Ajout d'un lien vers la modal sur Modifier
+// const buttonModifier = document.querySelector("portfolio a #modal1");
+//   buttonModifier.href = ".#modal1";
+//   buttonModifier.classList.add("open-modal");
 
-// Ajout d'un lien vers la modal sur Modifier
-const buttonModifier = document.querySelector("portfolio a #modal1");
-  buttonModifier.href = ".#modal1";
-  buttonModifier.classList.add("open-modal");
+// //Ouverture de la modal au clic sur modifier
+// document.addEventListener('click', function (event) {
+//   if (event.target.matches('.open-modal')) {
+//       openModal();
+//   };
+// });
 
-//Ouverture de la modal au clic sur modifier
-document.addEventListener('click', function (event) {
-  if (event.target.matches('.open-modal')) {
-      openModal();
-  };
-});
-
+const btn_photo = document.querySelectorbyId("#btn_photo");
 //Fermeture de la modal
-document.addEventListener("click", function (event) {
-    if (event.target.matches("js-btn-close")) {
-      closeModal();
-    } else if (event.target.matches("#modal1")) {
-      closeModal();
-    };
-});
+// document.addEventListener("click", function (event) {
+//     if (event.target("js-btn-close")) {
+//       closeModal();
+//     } else if (event.target("#modal1")) {
+//       closeModal();
+//     };
+// });
 
-//Ouverture de la Modal2
-document.addEventListener("click", function (event) {
-    if (event.target.matches(".image")) {
-      const modalWrapper = document.querySelector("deleteGallery");
-      modalWrapper.style.display = "none";
-      genererModal();
-    }
+// //Ouverture de la Modal2
+// document.addEventListener("click", function (event) {
+//     if (event.target.matches(".image")) {
+//       const modalWrapper = document.querySelector("deleteGallery");
+//       modalWrapper.style.display = "none";
+//       genererModal();
+//     }
+// })
+
+btn_photo.addEventListener("click", function () {
+  document.querySelectorbyId("#modal1").style.display = "none";
+  document.querySelectorById("#modal2").style.display = null;
 })
+
 
 //Au clic sur le bouton logout
 document.addEventListener("click", function (event) {
@@ -181,17 +200,12 @@ document.addEventListener("click", function (event) {
 
 /**Ouvrir la modal 2*/
 
-function Modal2Form () {
-  const modalWrapper = document.querySelector(".modal-wrapper");
-}
-
-document.addEventListener('click', function (event) {
-    if (event.target.matches('.#modal2')) {
-        const modal = document.querySelector('.modal');
-        modal.style.display = 'none';
-        Modal2Form();
-    };
-});
+//document.addEventListener('click', function (event) {
+  //if (event.target('#modal2')) {
+      //const modal = document.querySelector('.btn_photo');
+      //modal.style.display = 'none';
+  //};
+//});
 
 function returnModal () {
   const backmodal = document.querySelector(".modal2Return");
@@ -201,7 +215,7 @@ function returnModal () {
 //Retour vers la modal au click
 
 document.addEventListener("click", function (event) {
-  if (event.target.matches("modal2return")) {
+  if (event.target(".modal2return")) {
     returnModal()
   };
 });
@@ -232,7 +246,9 @@ function SelectFormulaire() {
         })        
 }
 
-/**Ajout sur l'API */
+/**Retour vers la page précédente */
+
+
 
 /**Bouton Modifier**/
 
@@ -242,8 +258,4 @@ function ButtonIntro() {
 };
 
 ButtonIntro();
-
-//Chargement de la page
-genererProjets ();
-AdminMode ()
 
