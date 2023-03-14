@@ -29,12 +29,16 @@ formulaireCon.addEventListener("submit", function(event) {
             console.log("My data ", data);
             //Enregistrer le token dans le localstorage
             localStorage.setItem("bearer", JSON.stringify(data.token));
-            localStorage.setItem("token", data.token)
+            localStorage.setItem("token", data.token);
             //redirection vers une nouvelle page après connexion validée
             location.replace("index.html");
+            localStorage.removeItem("token");
+            window.location.replace("index.html");
         })
         .catch((err) => {
             console.log("My error", err);
             alert("Erreur dans l'identifiant ou le mot de passe");
         });
 });
+
+

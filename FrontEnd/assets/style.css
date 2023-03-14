@@ -196,7 +196,6 @@ footer nav ul {
    	justify-content: center;
 	align-items: center;
 	margin-bottom: 10px;
-	display: none;
 }
 
 .button .btn_trier1 {
@@ -206,7 +205,6 @@ footer nav ul {
 	color: white;
 	padding: 10px;
 	margin-right: 10px;
-	display: none;
 }
 
 .button .btn_trier {
@@ -216,7 +214,6 @@ footer nav ul {
 	color: #1D6154;
 	padding: 10px;
 	margin-right: 10px;
-	display: none;
 }
 
 /***Login***/

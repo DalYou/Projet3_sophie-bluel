@@ -1,3 +1,7 @@
+const categories = "http://localhost:5678/api/categories"
+const Login = "http://localhost:5678/api/users/login"
+let categoryId = 0;
+
 // Récupération de la galerie depuis le BackEnd 
 const works = await fetch("http://localhost:5678/api/works");
 const jsonGallery = await works.json();
@@ -55,6 +59,15 @@ boutonHotelsRestaurants.addEventListener("click", function () {
   genererProjets(filtreHotelsRestaurants);
 });
 
+// Affichage du bouton logout
+
+function AdminMode() {
+    if (localStorage.getItem('token')) {
+      const login = document.querySelector("nav > ul > li > a");
+      login.innerHTML = "<a href=index.html>logout</a>";
+    }; 
+};
+
 /**Affichage de la gallerie dans la Modale **/
 
 function genererModal(jsonGallery) {
@@ -88,9 +101,15 @@ function genererModal(jsonGallery) {
     figureElement.appendChild(imageElement);
     figureElement.appendChild(descriptionElement);
     figureElement.appendChild(supprButton);
-      
+
+    // Création du bouton "déplacer"//
+const PremImage = document.queselector(".gallery_Modal");
+  console.log= "PremImage"
+const buttonDeplacer = document.createElement("i");
+    buttonDeplacer.classList.add("fa-solid", "fa-up-down-left-right");
+    PremImage.prepend(buttonDeplacer);  
   };
-  };
+};
   
 genererModal(jsonGallery);
  
@@ -119,6 +138,45 @@ function deleteGallery() {
   })
 }
 
+
+// Ajout d'un lien vers la modal sur Modifier
+const buttonModifier = document.querySelector("portfolio a #modal1");
+  buttonModifier.href = ".#modal1";
+  buttonModifier.classList.add("open-modal");
+
+//Ouverture de la modal au clic sur modifier
+document.addEventListener('click', function (event) {
+  if (event.target.matches('.open-modal')) {
+      openModal();
+  };
+});
+
+//Fermeture de la modal
+document.addEventListener("click", function (event) {
+    if (event.target.matches("js-btn-close")) {
+      closeModal();
+    } else if (event.target.matches("#modal1")) {
+      closeModal();
+    };
+});
+
+//Ouverture de la Modal2
+document.addEventListener("click", function (event) {
+    if (event.target.matches(".image")) {
+      const modalWrapper = document.querySelector("deleteGallery");
+      modalWrapper.style.display = "none";
+      genererModal();
+    }
+})
+
+//Au clic sur le bouton logout
+document.addEventListener("click", function (event) {
+    if (event.target.matches("#logout")) {
+        localStorage.removeItem("token");
+        window.location.href = "index.html"
+    };
+});
+
 /**Affichage de Modal 2 Formulaire */
 
 /**Ouvrir la modal 2*/
@@ -140,14 +198,41 @@ function returnModal () {
   backmodal.style.display = none;
 }
 
-document.addEventListener('click', function (event) {
-    if (event.target.matches('')) {
-        returnModal ()
+//Retour vers la modal au click
+
+document.addEventListener("click", function (event) {
+  if (event.target.matches("modal2return")) {
+    returnModal()
   };
 });
 
 /**Catégorie Modal 2 */
+function SelectFormulaire() {
+    fetch(categories)
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
 
+            }
+        })
+        .then(function(data) {
+            data.unshift({
+              id: 0,
+              name: ''
+            })
+            for(let category of data) {
+              const select = document.createElement("option");
+              select.classList.add("optionCategories");
+              select.setAttribute("id");
+              select.setAttribute("name");
+              select.innerText = category.name;
+              const selCategory = document.getElementById("category");
+              selCategory.append(select)
+            }
+        })        
+}
+
+/**Ajout sur l'API */
 
 /**Bouton Modifier**/
 
@@ -157,3 +242,8 @@ function ButtonIntro() {
 };
 
 ButtonIntro();
+
+//Chargement de la page
+genererProjets ();
+AdminMode ()
+
