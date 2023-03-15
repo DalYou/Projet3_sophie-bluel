@@ -163,7 +163,9 @@ function deleteGallery() {
 //   };
 // });
 
-const btn_photo = document.querySelectorbyId("#btn_photo");
+const btn_photo = document.getElementById("btn_photo");
+const modale2 = document.getElementById("modal2");
+const modale1 = document.getElementById("modal1");
 //Fermeture de la modal
 // document.addEventListener("click", function (event) {
 //     if (event.target("js-btn-close")) {
@@ -182,10 +184,25 @@ const btn_photo = document.querySelectorbyId("#btn_photo");
 //     }
 // })
 
-btn_photo.addEventListener("click", function () {
-  document.querySelectorbyId("#modal1").style.display = "none";
-  document.querySelectorById("#modal2").style.display = null;
-})
+btn_photo.addEventListener("click", () => {
+    if(getComputedStyle(modale1). display !="none"){;
+      modale1.style.display =  "none";
+    } else {
+      modale1.style.display = "block";
+    };
+});
+
+btn_photo.addEventListener("click", () => {
+  if(getComputedStyle(modale2). display !="none"){;
+   modale2.style.display =  "none";
+  } else {
+    modale2.style.display = "block";
+  };
+});
+
+//   document.querySelectorbyId("#modal1").style.display = "none";
+//   document.querySelectorById("#modal2").style.display = "block";
+// })
 
 
 //Au clic sur le bouton logout
@@ -214,11 +231,11 @@ function returnModal () {
 
 //Retour vers la modal au click
 
-document.addEventListener("click", function (event) {
-  if (event.target(".modal2return")) {
-    returnModal()
-  };
-});
+// document.addEventListener("click", function (event) {
+//   if (event.target(".modal2return")) {
+//     returnModal()
+//   };
+// });
 
 /**Catégorie Modal 2 */
 function SelectFormulaire() {

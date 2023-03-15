@@ -300,26 +300,27 @@ footer nav ul {
 	flex-direction: column;
 }
 
-.liens {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}
-
-a {
+.modifier  {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	text-decoration: none;
 	color: black;
+	object-fit: cover;
+	width: 94px;
+    margin-left: 50px;
 }
 
-.modifier {
+#modSec img{
 	display: flex;
 	flex-direction: row;
-	margin-left: 57px;
-    margin-top: 10px;
+	justify-content: center;
+	object-fit: cover;
+	width:20px;
+	width: 88px;
+    object-fit: cover;
+    margin: 3px;
 }
 
 .projets {
@@ -328,8 +329,6 @@ a {
 	justify-content: center;
 	padding: 10px;
 }
-
-div h2
 
 .fa-trash-can {
 	position : absolute;
