@@ -20,9 +20,9 @@
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li><a href="login.html">login</a></li>
+			<a href="#projets">projets</a></li>
+            <li><a href="#contact">contact</a></li>
+            <li><a href="login.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -32,12 +32,17 @@
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
 				<div class = "modifier connecte">
-					<a href="#modal1" class="js-modal" id="modfirst">
+					<a href="#modal1" class="js-modal firstmod" id="modfirst">
 						<img src="./assets/icons/logoModifier.png" alt="modifier">
 					</a>
 				</div>
 		</figure>
 		<article>
+			<div class = "modifier connecte">
+				<a href="#modal1" class="js-modal" id="modfirst">
+					<img src="./assets/icons/logoModifier.png" alt="modifier">
+				</a>
+			</div>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
@@ -45,22 +50,20 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<div class="button">
-			<button class="btn_trier1" id="btntous">Tous</button>
-			<button class="btn_trier" id="btnobjets">Objets</button>
-			<button class="btn_trier" id="btnappartements">Appartements</button>
-			<button class="btn_trier" id="btnhotelsrestaurants">Hôtels & restaurants</button>
-		</div>
 		<div class="projets">
-			<h2>Mes Projets</h2>
-			<div class="liens connecte">
-				<a href="#modal1" class="js-modal" id="modSec">
-					<img src="assets/icons/logoModifier.png" alt="modifier">
-				</a>
+            <div class="navmodifier">
+				<h2>Mes Projets </h2>
+				<img src="assets/icons/logomodifier.png" alt="Modifier" href="#modal1" class="js-modal modifier connecte">
 			</div>
+				<div class="button">
+					<button class="btn_trier1" id="btntous">Tous</button>
+					<button class="btn_trier" id="btnobjets">Objets</button>
+					<button class="btn_trier" id="btnappartements">Appartements</button>
+					<button class="btn_trier" id="btnhotelsrestaurants">Hôtels & restaurants</button>
+				</div>
 		</div>
 			<div class="gallery">
-	        </div>
+	    	</div>
 	</section>
 	<section id="contact">
 		<h2>Contact</h2>
@@ -75,7 +78,57 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
-	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display:none;">
+	<!-- Mise en place de la modale-->
+    <aside> 
+		<div id="modal1" class="modal" role="dialog" style="display:none">
+			<div class="modal-wrapper js-modal-stop">
+				<i class="fa-solid fa-xmark js-modal-close fermer"></i>
+				<h5>Galerie Photo</h5>
+				<!-- Photo modal -->
+				<div class="galleryeditor">
+					<i class="fa-solid fa-up-down-left-right"></i>
+				</div>
+				<hr/> 
+				<a href="#modal2" id="btnphotomodal2" class="btnphotomodal2">Ajouter photo</a>
+				<button class="suppression">Supprimer la galerie</button>
+			</div>
+		</div>
+
+		<!-- modale 2-->
+		<div id="modal2" class="modal" role="dialog"  style="display:none">
+			<div class="modal-wrapper js-modal-stop">
+				<div class="navmodal"> 
+						<a href="#modal1"><i class="fa-solid fa-arrow-left" id="retour"></i></a> 
+						<i class="fa-solid fa-xmark js-modal-close fermer"></i>
+				</div>
+				<h5>Ajout Photo</h5>
+				<form method="post" class="formulaire" id="form">
+					<div class="newphoto">
+						<div class="montrer"><img class="blah" src="#" alt=""/></div>
+						<i class="fa-solid fa-image apercu"></i>
+						<div class="upload-btn-wrapper apercu">
+								<input type="file" class ="imgInp" name="imgInp" id="imgInp" accept="image/png, image/jpeg, image/jpg"/>
+								<button  class="btnaddphoto">+ Ajouter photo</button>
+								<p>jpg, png : 4mo max</p>
+						</div>
+					</div>
+					<div><label>Titre</label><br>
+					<input class="addimagechoice" type="text" id="title" name="title" required></div><br>
+					<div><label>Catégorie</label><br>
+					<select class="addimagechoice" id="category" name="category" required>
+						<option value=""> Choisissez une catégorie</option>
+						<option value="1">Objets</option>
+						<option value="2">Appartements</option>
+    					<option value="3">Hotels & restaurants</option>
+					</select></div>
+					<br>
+					<hr/ class="hrmodal2">
+					<button id="btnvalider" type="submit">Valider</button>
+				</form>
+		    </div>
+	    </div>
+	</aside>
+	<!-- <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display:none;">
 		<div class="modal-wrapper js_modal_stop">
 			<button class="js_btn_close">X</button>
 			<h1 id="titlemodal">Galerie photo</h1>
@@ -103,7 +156,7 @@
 				<input id="btnValiderModal2" type="submit" value="Valider">
 			</form>
 		</div> 
-	</aside>
+	</aside> -->
 </main>
 <footer>
 	<nav>
@@ -113,6 +166,6 @@
 	</nav>
 </footer>
 <script type="module" src="js/galerie.js"></script>
-<script src="js/modal.js"></script>
+<!-- <script src="js/modal.js"></script> -->
 </body>
 </html>
