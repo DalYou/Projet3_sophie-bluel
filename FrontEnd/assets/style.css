@@ -286,33 +286,26 @@ a {
 	justify-content: center;
 }
 
-.modifier  {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
+#modthree {
 	object-fit: cover;
-	width: 94px;
-    margin-left: 50px;
+	height: 31px;
+    margin-left: 31px;
 }
 
-#modSec img{
+#modsec {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	object-fit: cover;
 	width: 88px;
     object-fit: cover;
-    margin: 3px;
+    margin: 3px 3px 3px -10px;
 }
 
-.firstmod {
-	display: flex;
-    justify-content: flex-start;
-    object-fit: cover;
-    width: 88px;
-    margin-left: -10px;
-    margin-bottom: 10px;
+#modfirst {
+	object-fit: cover;
+	width: 88px;
+	margin-left: 38px;
 }
 
 
@@ -391,9 +384,15 @@ h5 {
 }
 
 .js-modal-close {
+	margin-right: 10px;
+    font-size: 15px;
 	display: flex;
     justify-content: flex-end;
-    margin-right: 10px;
+}
+
+.navmodal i {
+	font-size: 15px;
+    margin-left: 10px;
 }
 
 hr {
@@ -441,7 +440,6 @@ hr {
     height: auto;
     border-radius: 10px;
     background-color: white;
-    overflow: auto;
 }
 
 .btnModal {
@@ -501,7 +499,7 @@ hr {
     border: none;
     border-top: 1px solid #B3B3B3;
     padding: 10px;
-    width: 40%;
+    width: 50%;
     display: flex;
     justify-content: center;
     margin: auto;
@@ -512,26 +510,36 @@ hr {
 }
 
 .newphoto {
-	height: fit-content;
-    background: #E8F1F7;
-    margin-top: -23px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 28px;
-    margin-bottom: 30px;
-    border-radius: 3px;
-    width: 324px;
-    height: 143px;
+	background: #E8F1F7;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 30px;
+	border-radius: 3px;
+	height: 152px;
 }
 
-.fa-solid, .fa-image, .apercu{
+.newphoto i{
+	font-size: 94px;
     color: #B9C5CC;
+    opacity: 0.3;
+}
+
+.upload-btn-wrapper {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.navmodal {
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .apercu p {
 	display: flex;
     justify-content: center;
+	font-size: 10px;
 }
 
 #btnValiderModal2 .valider {
@@ -542,9 +550,8 @@ hr {
 }
 
 .btnaddphoto {
-	padding: 10px 33px;
+	padding: 11px 11px;
     font-size: 14px;
-    font-style: medium;
     line-height: 16px;
     color: #306685;
     font-family: 'Work Sans';
@@ -552,8 +559,7 @@ hr {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
+	margin: auto;
 }
 
 .barrepub {

@@ -80,16 +80,16 @@ boutonHotelsRestaurants.addEventListener("click", function () {
   genererProjets(filtreHotelsRestaurants);
 });
 
-// Affichage du bouton logout
+//Affichage du bouton logout
 
-//function AdminMode() {
-    //if (localStorage.getItem('token')) {
-      //const login = document.querySelector("nav > ul > li > a");
-      //login.innerHTML = "<a href=index.html>logout</a>";
-    //}; 
-//};
+function AdminMode() {
+    if (localStorage.getItem('token')) {
+      const login = document.querySelector("nav > ul > li > a");
+      login.innerHTML = "<a href=index.html>logout</a>";
+    }; 
+};
 
-//AdminMode();
+AdminMode();
 
 /**Affichage de la gallerie dans la Modale **/
 
@@ -166,7 +166,7 @@ boutonModal2.addEventListener("click", function () {
   document.querySelector("#modal1").style.display = "none";
 });
 
-// passer de a modal2 à modal1
+// passer de la modal2 à modal1
 const retour = document.querySelector("#retour");
 retour.addEventListener("click", function () {
   document.querySelector("#modal1").style.display = null;
@@ -218,129 +218,136 @@ function deleteGallery() {
   })
 }
 
+//Au clic sur le bouton logout
 
-// // Ajout d'un lien vers la modal sur Modifier
-// const buttonModifier = document.querySelector("portfolio a #modal1");
-//   buttonModifier.href = ".#modal1";
-//   buttonModifier.classList.add("open-modal");
+const logout = document.querySelector(".login");
 
-// //Ouverture de la modal au clic sur modifier
-// document.addEventListener('click', function (event) {
-//   if (event.target.matches('.open-modal')) {
-//       openModal();
-//   };
-// });
+logout.addEventListener("click", function (event) {
+    if (event.target("#logout")) {
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+    };
+});
 
 const btn_photo = document.getElementById("btn_photo");
 const modale2 = document.getElementById("modal2");
 const modale1 = document.getElementById("modal1");
-//Fermeture de la modal
-// document.addEventListener("click", function (event) {
-//     if (event.target("js-btn-close")) {
-//       closeModal();
-//     } else if (event.target("#modal1")) {
-//       closeModal();
-//     };
-// });
-
-// //Ouverture de la Modal2
-// document.addEventListener("click", function (event) {
-//     if (event.target.matches(".image")) {
-//       const modalWrapper = document.querySelector("deleteGallery");
-//       modalWrapper.style.display = "none";
-//       genererModal();
-//     }
-// })
-
-// btn_photo.addEventListener("click", () => {
-//     if(getComputedStyle(modale1). display !="none"){;
-//       modale1.style.display =  "none";
-//     } else {
-//       modale1.style.display = "block";
-//     };
-// });
-
-// btn_photo.addEventListener("click", () => {
-//   if(getComputedStyle(modale2). display !="none"){;
-//    modale2.style.display =  "none";
-//   } else {
-//     modale2.style.display = "block";
-//   };
-// });
-
-//   document.querySelectorbyId("#modal1").style.display = "none";
-//   document.querySelectorById("#modal2").style.display = "block";
-// })
-
-
-//Au clic sur le bouton logout
-document.addEventListener("click", function (event) {
-    if (event.target.matches("#logout")) {
-        localStorage.removeItem("token");
-        window.location.href = "index.html"
-    };
-});
-
-/**Affichage de Modal 2 Formulaire */
-
-/**Ouvrir la modal 2*/
-
-//document.addEventListener('click', function (event) {
-  //if (event.target('#modal2')) {
-      //const modal = document.querySelector('.btn_photo');
-      //modal.style.display = 'none';
-  //};
-//});
 
 function returnModal () {
   const backmodal = document.querySelector(".modal2Return");
   backmodal.style.display = none;
 }
 
-//Retour vers la modal au click
-
-// document.addEventListener("click", function (event) {
-//   if (event.target(".modal2return")) {
-//     returnModal()
-//   };
-// });
-
 /**Catégorie Modal 2 */
-function SelectFormulaire() {
-    fetch(categories)
-        .then(function(response) {
-            if (response.ok) {
-                return response.json();
+// function SelectFormulaire() {
+//     fetch(category)
+//         .then(function(response) {
+//             if (response.ok) {
+//                 return response.json();
 
-            }
-        })
-        .then(function(data) {
-            data.unshift({
-              id: 0,
-              name: ''
-            })
-            for(let category of data) {
-              const select = document.createElement("option");
-              select.classList.add("optionCategories");
-              select.setAttribute("id");
-              select.setAttribute("name");
-              select.innerText = category.name;
-              const selCategory = document.getElementById("category");
-              selCategory.append(select)
-            }
-        })        
-}
+//             }
+//         })
+//         .then(function(data) {
+//             data.unshift({
+//               id: 0,
+//               name: ''
+//             })
+//             for(let category of data) {
+//               const select = document.createElement("option");
+//               select.classList.add("optionCategories");
+//               select.setAttribute("id");
+//               select.setAttribute("name");
+//               select.innerText = category.name;
+//               const selCategory = document.getElementById("category");
+//               selCategory.append(select)
+//             }
+//         })        
+// }
 
-/**Retour vers la page précédente */
+function sendData() {
+  const title = document.getElementById("title").ariaValueMax;
+  const selectformulaire = document.getElementById("category");
+  const choice = category.value;
+  const category = category.option[choice].id;
+  const file = document.getElementById("imgInd").files[0];
+
+  const formData = new FormData();
+  formData.append("image", file);
+  formData.append("title", file);
+  formData.append("category", category);
+
+  const token = localStorage.getItem("token");
+  fetch("http://localhost:5678/api/works/", {
+    method: "POST",
+    body: formData,
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer ${token}",
+    }, 
+  })
+
+      .then(response => {
+        console.log(response);
+        if (response.ok) {
+          console.log("Données envoyée avec succès !");
+        } else {
+          console.error ("Erreur lors de l'envoi des données");
+        };
+      });
+        //.catch(error => console.error("Erreur lors de l'envoi des données"));
+};
+
+//Ajout photos
+
+
+
+
+// const imgInp = document.querySelector("#imgInp");
+
+// imgInp.addEventListener("change", previoufile);
+
+// function previoufile() {
+// const file_extension_regex = /\.(jpeg|jpg|png|gif)$/i;
+//   if(this.files.length === 0 || !file_extension_regex.test(this.files[0].name)) {
+//   return;
+// }
+
+// const file = this.files[0];
+
+
+// const file_reader = new FileReader();
+
+// file_reader.readAsDataURL(file);
+
+// file_reader.addEventListener("load", (event) => displayImage(event, file));
+
+// }
+
+
+
+// function displayImage(event, file) {
+//   const figure_element = document.createElement("figure");
+//   figure_element.classList.add("figureElement");
+
+//FormData.append("image", file)
+  //const image_element = document.createElement("img");
+  //image_element.src = event.target.result;
+
+  //figure_element.appendChild(image_element);
+
+  //document.body.querySelector(".gallery").appendChild(figure_element);
+//}
 
 
 
 /**Bouton Modifier**/
 
-function ButtonIntro() {
-  let modifier = document.createElement('a');
-  modifier.innerHTML = '<i class="fas fa-regular fa-pen-to-square fa-lg"></i> modifier';
-};
+// function ButtonIntro() {
+//   let modifier = document.createElement('a');
+//   modifier.innerHTML = '<i class="fas fa-regular fa-pen-to-square fa-lg"></i> modifier';
+// };
 
-ButtonIntro();
+// ButtonIntro();
+
+
 
