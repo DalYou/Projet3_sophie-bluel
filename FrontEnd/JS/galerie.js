@@ -84,7 +84,7 @@ boutonHotelsRestaurants.addEventListener("click", function () {
 
 function AdminMode() {
     if (localStorage.getItem('token')) {
-      const login = document.querySelector("nav > ul > li > a");
+      const login = document.querySelector("#login");
       login.innerHTML = "<a href=index.html>logout</a>";
     }; 
 };
@@ -101,7 +101,8 @@ function genererModal(jsonGallery) {
 	  const figureElement= document.createElement("figure");
     figureElement.style.width = '50px';
     figureElement.style.height = '90px';	  
-	  const imageElement = document.createElement("img");
+	  figureElement.classList.add("modal_figure");
+    const imageElement = document.createElement("img");
 	  imageElement.src = modal.imageUrl;
     imageElement.crossOrigin = "anonymous";
 	  imageElement.alt = modal.title;
@@ -117,7 +118,9 @@ function genererModal(jsonGallery) {
     supprButton.style.position = "fixed";
     supprButton.style.marginTop = "-81px";
     supprButton.style.marginLeft = "36px";
-    supprButton.style.background = "white";
+    supprButton.style.background = "black";
+    supprButton.style.color = "white";
+    supprButton.style.fontSize = "12px";
     //supprButton.setAttribute("class", "corbeille")
     supprButton.id = modal.id;
           
@@ -218,16 +221,22 @@ function deleteGallery() {
   })
 }
 
-//Au clic sur le bouton logout
+//Ajout du bouton "déplacer" sur la première image
 
-const logout = document.querySelector(".login");
-
-logout.addEventListener("click", function (event) {
-    if (event.target("#logout")) {
-        localStorage.removeItem("token");
-        window.location.href = "index.html";
-    };
-});
+const FirstImg = document.getElementsByClassName("modal_figure").item(0);
+const depButton = document.createElement("i");
+depButton.classList.add("fa-solid", "fa-up-down-left-right");
+depButton.style.width = "15px";
+depButton.style.height = "15px";
+depButton.style.zIndex = 1;
+depButton.style.position = "fixed";
+depButton.style.color = "white";
+depButton.style.background = "black";
+depButton.style.fontSize = "12px";
+depButton.style.marginLeft = "17px";
+depButton.style.marginTop = "2px";
+FirstImg.prepend(depButton);
+ 
 
 const btn_photo = document.getElementById("btn_photo");
 const modale2 = document.getElementById("modal2");
@@ -266,7 +275,7 @@ function returnModal () {
 
 function sendData() {
   const title = document.getElementById("title").ariaValueMax;
-  const selectformulaire = document.getElementById("category");
+  const categoryId = document.getElementById("category");
   const choice = category.value;
   const category = category.option[choice].id;
   const file = document.getElementById("imgInd").files[0];

@@ -349,10 +349,6 @@ a {
     justify-content: center;
 }
 
-.fa-trash-can {
-	position : absolute;
-}
-
 .btn_delete {
 	border: none;
 	background: none;
