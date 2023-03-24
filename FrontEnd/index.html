@@ -57,7 +57,7 @@
 					<img src="assets/icons/logomodifier.png" alt="Modifier" href="#modal1">
 				</a>
 			</div>
-				<div class="button">
+				<div class="button" id="buttontrie">
 					<button class="btn_trier1" id="btntous">Tous</button>
 					<button class="btn_trier" id="btnobjets">Objets</button>
 					<button class="btn_trier" id="btnappartements">Appartements</button>
@@ -112,19 +112,19 @@
 								<input type="file" class ="imgInp" name="imgInp" id="imgInp" accept="image/png, image/jpeg, image/jpg" hidden/>
 								<label for="imgInp" class="btnaddphoto">+ Ajouter photo</label>
 								<p>jpg, png : 4mo max</p>
-					</div>
-					</div>
-					<div id="title"><label>Titre</label><br>
+					    </div>
+					</div><br>
+					<div><label>Titre</label><br>
 					<input class="addimagechoice" type="text" id="title" name="title" required></div><br>
 					<div><label>Catégorie</label><br>
 					<select class="addimagechoice" id="category" name="category" required>
 						<option value=""> Choisissez une catégorie</option>
 						<option value="1">Objets</option>
 						<option value="2">Appartements</option>
-    					<option value="3">Hotels & restaurants</option>
+						<option value="3">Hotels & restaurants</option>
 					</select></div>
 					<br>
-					<hr/ class="hrmodal2">
+					<hr class="hrmodal2"/>
 					<button id="btnvalider" type="submit">Valider</button>
 				</form>
 		    </div>

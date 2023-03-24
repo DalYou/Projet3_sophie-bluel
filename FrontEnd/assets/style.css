@@ -52,6 +52,7 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	overflow-x: hidden;
 }
 header {
 	display: flex;
@@ -428,14 +429,9 @@ hr {
 }
 
 .formulaire {
-	display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    width: 400px;
-    height: auto;
-    border-radius: 10px;
-    background-color: white;
+display : flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .btnModal {
@@ -472,16 +468,13 @@ hr {
 
 .addimagechoice {
 	box-shadow: 0 4px 4px 0 #0000002e;
-    margin-bottom: 20px;
+    width: 420px;
+    height: 51px;
+    border: none;
     margin-top: 5px;
-    width: 93%;
-	padding: 8px;
-	border: none;
 }
 
-#category {
-	width: 98%;
-}
+
 
 .modal2Close {
 	border: none;
@@ -506,26 +499,34 @@ hr {
 }
 
 .newphoto {
-	background: #E8F1F7;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-bottom: 30px;
-	border-radius: 3px;
-	height: 152px;
+  display: flex;
+  flex-direction: column;
+  background: #e8f1f6;
+  height: 169px;
+  width: 420px;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .newphoto i{
-	font-size: 94px;
-    color: #B9C5CC;
-    opacity: 0.3;
+	font-size: 58px;
+  position: relative;
+}
+
+.montrer {
+	display: none;
 }
 
 .upload-btn-wrapper {
-	display: flex;
-    flex-direction: column;
-    justify-content: center;
+	position: relative;
+    overflow: hidden;
+    display: inline-block;
 }
+.upload-btn-wrapper p {
+	display: flex;
+	justify-content: center;
+}
+
 .navmodal {
 	display: flex;
     flex-direction: row;
@@ -546,23 +547,39 @@ hr {
 }
 
 .btnaddphoto {
-	padding: 11px 11px;
-    font-size: 14px;
-    line-height: 16px;
-    color: #306685;
-    font-family: 'Work Sans';
-    background-color: #CBD6DC;
-    border: none;
+    width: 171px;
+    height: 36px;
+    background: #cbd6dc;
     border-radius: 50px;
-    cursor: pointer;
-	margin: auto;
+    border: none;
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    align-content: center;
+	color: #306685;
+}
+
+.upload-btn-wrapper input[type="file"] {
+	font-size: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+  }
+
+.blah {
+	object-fit: cover;
+    max-width: 126px;
 }
 
 .barrepub {
-	background:black;
-	display:flex;
-	justify-content:center;
-	flex-direction: row;
+	background: black;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: auto;
+    height: 40px;
+    margin: 0% -42.5%;
 }
 
 .barrepub img {

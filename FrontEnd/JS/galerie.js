@@ -9,23 +9,33 @@ console.log(jsonGallery);
 
 //Vérifier si user est connecté
 try{
-  const token = JSON.parse(localStorage.getItem("bearer"));
+  const token = JSON.parse(localStorage.getItem("bearer", "token"));
   const connecte = token ? "flex" : "none";
   document.querySelectorAll(".connecte").forEach((element) => {
     element.style.display = connecte;
-  });
-}catch (error){
+  })
+  }catch (error){
+ console.error(error);
+}
+
+//Si user pas connecté
+try{
+  const token = JSON.parse(localStorage.removeItem("bearer"));
+  const connected = token ? "flex" : "none";
+  document.querySelectorAll(".connecte").forEach((element) => {
+    element.style.display = "none";
+  })
+  }catch (error){
  console.error(error);
 }
 
 //Déclaration de la fonction générer la gallerie page index
 function genererProjets(jsonGallery) {
   const divGallery = document.querySelector(".gallery");
-  //on vide le contenu de notre classe ".gallery" ou du moins son contenu Html
   divGallery.innerHTML = ""
   for (let i = 0; i < jsonGallery.length; i++) {
 	  const projet = jsonGallery[i];	  
-      //Récupération de l'élément du DOM qui accueillera les fiches + créations balises
+    //Récupération de l'élément du DOM qui accueillera les fiches + créations balises
 	  const figureElement= document.createElement("figure");	  
 	  const imageElement = document.createElement("img");
 	  imageElement.src = projet.imageUrl;
@@ -43,6 +53,7 @@ function genererProjets(jsonGallery) {
 // Appel de la fonction "genererProjets"
 genererProjets(jsonGallery);
 
+//Trie des boutons
 const boutonTous = document.querySelector("#btntous");
 boutonTous.addEventListener("click", function () {
   const filtreTous = jsonGallery.filter(function (proje) {
@@ -83,16 +94,32 @@ boutonHotelsRestaurants.addEventListener("click", function () {
 //Affichage du bouton logout
 
 function AdminMode() {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem("token")) {
       const login = document.querySelector("#login");
-      login.innerHTML = "<a href=index.html>logout</a>";
-    }; 
-};
+      login.innerHTML = "<a href=index.html id=logout>logout</a>";
+    };
+    };
 
 AdminMode();
 
-/**Affichage de la gallerie dans la Modale **/
+//Affichage des buttons de trie
+function Trie() {
+    if(localStorage.getItem("token")) {
+      const buttontrie = document.querySelector("#buttontrie");
+        buttontrie.style.display = "none";
+    }
+}
 
+Trie ();
+
+// Déconnexion au clic que le bouton logout
+document.addEventListener("click", function (event) {
+  if (event.target.matches("#logout")) {
+      localStorage.removeItem("token");
+  };
+});
+
+//Affichage de la gallerie dans la Modale 
 function genererModal(jsonGallery) {
   const divGalleryModal = document.querySelector(".galleryeditor");
   divGalleryModal.innerHTML = ""
@@ -134,7 +161,7 @@ function genererModal(jsonGallery) {
   
 genererModal(jsonGallery);
 
-// mode fenetre modale
+// mode fenêtre modale
 const modal1 = document.getElementById("modal1");
 const modal2 = document.getElementById("modal2");
 const boutonModal2 = document.querySelector("#btnphotomodal2");
@@ -182,6 +209,7 @@ window.addEventListener("click", function (event) {
     modal.style.display = "none";
   }
 });
+
 // fermer toutes les modales
 closeAll.forEach(function (close) {
   close.addEventListener("click", function () {
@@ -222,7 +250,6 @@ function deleteGallery() {
 }
 
 //Ajout du bouton "déplacer" sur la première image
-
 const FirstImg = document.getElementsByClassName("modal_figure").item(0);
 const depButton = document.createElement("i");
 depButton.classList.add("fa-solid", "fa-up-down-left-right");
@@ -236,127 +263,97 @@ depButton.style.fontSize = "12px";
 depButton.style.marginLeft = "17px";
 depButton.style.marginTop = "2px";
 FirstImg.prepend(depButton);
- 
 
-const btn_photo = document.getElementById("btn_photo");
-const modale2 = document.getElementById("modal2");
-const modale1 = document.getElementById("modal1");
+//Aperçu de la photo avant de l'ajouter.
+const blah = document.querySelector(".blah");
+const apercu = document.querySelector(".apercu");
+const montrer = document.querySelector(".montrer");
 
-function returnModal () {
-  const backmodal = document.querySelector(".modal2Return");
-  backmodal.style.display = none;
-}
 
-/**Catégorie Modal 2 */
-// function SelectFormulaire() {
-//     fetch(category)
-//         .then(function(response) {
-//             if (response.ok) {
-//                 return response.json();
-
-//             }
-//         })
-//         .then(function(data) {
-//             data.unshift({
-//               id: 0,
-//               name: ''
-//             })
-//             for(let category of data) {
-//               const select = document.createElement("option");
-//               select.classList.add("optionCategories");
-//               select.setAttribute("id");
-//               select.setAttribute("name");
-//               select.innerText = category.name;
-//               const selCategory = document.getElementById("category");
-//               selCategory.append(select)
-//             }
-//         })        
-// }
-
-function sendData() {
-  const title = document.getElementById("title").ariaValueMax;
-  const categoryId = document.getElementById("category");
-  const choice = category.value;
-  const category = category.option[choice].id;
-  const file = document.getElementById("imgInd").files[0];
-
-  const formData = new FormData();
-  formData.append("image", file);
-  formData.append("title", file);
-  formData.append("category", category);
-
-  const token = localStorage.getItem("token");
-  fetch("http://localhost:5678/api/works/", {
-    method: "POST",
-    body: formData,
-    headers: {
-      Accept: "application/json",
-      Authorization: "Bearer ${token}",
-    }, 
-  })
-
-      .then(response => {
-        console.log(response);
-        if (response.ok) {
-          console.log("Données envoyée avec succès !");
-        } else {
-          console.error ("Erreur lors de l'envoi des données");
-        };
-      });
-        //.catch(error => console.error("Erreur lors de l'envoi des données"));
+imgInp.onchange = () => {
+  const [file] = imgInp.files;
+  if (file) {
+    blah.src = URL.createObjectURL(file);
+    montrer.style.display = "block";
+    apercu.style.display = "none";
+  } else {
+    // Réinitialiser l'aperçu de l'image si aucun fichier n'est sélectionné
+    blah.src = "";
+    montrer.style.display = "none";
+    apercu.style.display = "block";
+  }
 };
 
-//Ajout photos
+//Ajouter des elements dans la modale 2
+const sectionModal = document.querySelector(".modal-wrapper");
+const formulairePhoto = document.getElementById("btnvalider");
+const addImage = document.querySelector("#imgInp");
+const addTitre = document.getElementById("title");
+const addCategory = document.getElementById("category");
+
+formulairePhoto.addEventListener("click", async function (e) {
+  e.preventDefault();
+  alert(addImage.value);
+  alert(addTitre.value);
+  alert(addCategory.value);
+   // Image et un titre ont été ajoutés ?
+  if (!addImage.value || !addTitre.value) {
+    alert("Veuillez ajouter une image et un titre.");
+    return;   
+  } else {
+    formulairePhoto.style.background ="#1D6154"; 
+  }
+
+  console.log(addImage.files[0]);
+  console.log(addImage.files[0].name);
+  const formData = new FormData();
+  formData.append("image", addImage.files[0], addImage.files[0].name);
+  formData.append("title", addTitre.value);
+  formData.append("category", addCategory.value);
+  await fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    body: formData,
+  }).then(async (response) => {
+    if (response.ok) {
+      alert("Document ajouté");
+      //vider le formulaire
+      const form = document.getElementById('form');
+      form.reset();
+
+      // Réinitialiser l'aperçu de l'image de la première image
+      if (addImage.files && addImage.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          console.log(e);
+          console.log(e.target.result);
+          blah.src = e.target.result;
+          montrer.style.display = "block";
+          apercu.style.display = "none";
+        };
+        reader.readAsDataURL(addImage.files[0]);
+      } else {
+        blah.src = "";
+        montrer.style.display = "";
+        apercu.style.display = "";
+      }
+      //apparition de l'élément
+      document.querySelector(".galleryeditor").innerHTML= "";
+      const works = await fetch("http://localhost:5678/api/works");
+      const articles = await works.json();
+      genererArticles(articles);
+      genererModal(articles);
+      
+    } else {
+      alert("Attention vous n'avez pas sélectionné de catégorie !");
+    }
+  });
+});
 
 
 
-
-// const imgInp = document.querySelector("#imgInp");
-
-// imgInp.addEventListener("change", previoufile);
-
-// function previoufile() {
-// const file_extension_regex = /\.(jpeg|jpg|png|gif)$/i;
-//   if(this.files.length === 0 || !file_extension_regex.test(this.files[0].name)) {
-//   return;
-// }
-
-// const file = this.files[0];
-
-
-// const file_reader = new FileReader();
-
-// file_reader.readAsDataURL(file);
-
-// file_reader.addEventListener("load", (event) => displayImage(event, file));
-
-// }
-
-
-
-// function displayImage(event, file) {
-//   const figure_element = document.createElement("figure");
-//   figure_element.classList.add("figureElement");
-
-//FormData.append("image", file)
-  //const image_element = document.createElement("img");
-  //image_element.src = event.target.result;
-
-  //figure_element.appendChild(image_element);
-
-  //document.body.querySelector(".gallery").appendChild(figure_element);
-//}
-
-
-
-/**Bouton Modifier**/
-
-// function ButtonIntro() {
-//   let modifier = document.createElement('a');
-//   modifier.innerHTML = '<i class="fas fa-regular fa-pen-to-square fa-lg"></i> modifier';
-// };
-
-// ButtonIntro();
 
 
 
