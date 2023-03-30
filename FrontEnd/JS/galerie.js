@@ -9,7 +9,7 @@ console.log(jsonGallery);
 
 //Vérifier si user est connecté
 try{
-  const token = JSON.parse(localStorage.getItem("bearer", "token"));
+  const token = JSON.parse(localStorage.getItem("bearer"));
   const connecte = token ? "flex" : "none";
   document.querySelectorAll(".connecte").forEach((element) => {
     element.style.display = connecte;
@@ -18,16 +18,16 @@ try{
  console.error(error);
 }
 
-//Si user pas connecté
-try{
-  const token = JSON.parse(localStorage.removeItem("bearer"));
-  const connected = token ? "flex" : "none";
-  document.querySelectorAll(".connecte").forEach((element) => {
-    element.style.display = "none";
-  })
-  }catch (error){
- console.error(error);
-}
+// //Si user pas connecté
+// try{
+//   const token = JSON.parse(localStorage.removeItem("bearer"));
+//   const connected = token ? "flex" : "none";
+//   document.querySelectorAll(".connecte").forEach((element) => {
+//     element.style.display = "none";
+//   })
+//   }catch (error){
+//  console.error(error);
+// }
 
 //Déclaration de la fonction générer la gallerie page index
 function genererProjets(jsonGallery) {
@@ -35,7 +35,6 @@ function genererProjets(jsonGallery) {
   divGallery.innerHTML = ""
   for (let i = 0; i < jsonGallery.length; i++) {
 	  const projet = jsonGallery[i];	  
-    //Récupération de l'élément du DOM qui accueillera les fiches + créations balises
 	  const figureElement= document.createElement("figure");	  
 	  const imageElement = document.createElement("img");
 	  imageElement.src = projet.imageUrl;
@@ -91,16 +90,6 @@ boutonHotelsRestaurants.addEventListener("click", function () {
   genererProjets(filtreHotelsRestaurants);
 });
 
-//Affichage du bouton logout
-
-function AdminMode() {
-    if (localStorage.getItem("token")) {
-      const login = document.querySelector("#login");
-      login.innerHTML = "<a href=index.html id=logout>logout</a>";
-    };
-    };
-
-AdminMode();
 
 //Affichage des buttons de trie
 function Trie() {
@@ -112,12 +101,25 @@ function Trie() {
 
 Trie ();
 
-// Déconnexion au clic que le bouton logout
+// Déconnexion au clic sur le bouton logout
 document.addEventListener("click", function (event) {
   if (event.target.matches("#logout")) {
       localStorage.removeItem("token");
+      localStorage.removeItem("bearer")
+      location.replace("index.html");
   };
 });
+
+//Affichage du bouton logout
+
+function AdminMode() {
+  if (localStorage.getItem("token")) {
+    const login = document.querySelector("#login");
+    login.innerHTML = "<a href=index.html id=logout>logout</a>";
+  };
+};
+
+AdminMode();
 
 //Affichage de la gallerie dans la Modale 
 function genererModal(jsonGallery) {
@@ -293,9 +295,6 @@ const addCategory = document.getElementById("category");
 
 formulairePhoto.addEventListener("click", async function (e) {
   e.preventDefault();
-  alert(addImage.value);
-  alert(addTitre.value);
-  alert(addCategory.value);
    // Image et un titre ont été ajoutés ?
   if (!addImage.value || !addTitre.value) {
     alert("Veuillez ajouter une image et un titre.");
@@ -310,6 +309,7 @@ formulairePhoto.addEventListener("click", async function (e) {
   formData.append("image", addImage.files[0], addImage.files[0].name);
   formData.append("title", addTitre.value);
   formData.append("category", addCategory.value);
+  console.log(formData);
   await fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
