@@ -18,17 +18,6 @@ try{
  console.error(error);
 }
 
-// //Si user pas connecté
-// try{
-//   const token = JSON.parse(localStorage.removeItem("bearer"));
-//   const connected = token ? "flex" : "none";
-//   document.querySelectorAll(".connecte").forEach((element) => {
-//     element.style.display = "none";
-//   })
-//   }catch (error){
-//  console.error(error);
-// }
-
 //Déclaration de la fonction générer la gallerie page index
 function genererProjets(jsonGallery) {
   const divGallery = document.querySelector(".gallery");
