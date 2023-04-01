@@ -117,8 +117,8 @@ function genererModal(jsonGallery) {
   for (let i = 0; i < jsonGallery.length; i++) {
 	  const modal = jsonGallery[i];	  
 	  const figureElement= document.createElement("figure");
-    figureElement.style.width = '50px';
-    figureElement.style.height = '90px';	  
+    figureElement.style.width = '70px';
+    figureElement.style.height = '110px';	  
 	  figureElement.classList.add("modal_figure");
     const imageElement = document.createElement("img");
 	  imageElement.src = modal.imageUrl;
@@ -129,16 +129,19 @@ function genererModal(jsonGallery) {
 	  const descriptionElement = document.createElement("figcaption");
 	  descriptionElement.innerText = 'éditer';
     const supprButton = document.createElement("i");
-    supprButton.classList.add('fa', 'fa-light', 'fa-trash-can', 'corbeille');
+    supprButton.classList.add('fa-solid', 'fa-trash-can', 'corbeille');
     supprButton.style.width = "15px";
-    supprButton.style.height = "15px";
+    supprButton.style.height = "13px";
     supprButton.style.zIndex = 1;
     supprButton.style.position = "fixed";
-    supprButton.style.marginTop = "-81px";
-    supprButton.style.marginLeft = "36px";
+    supprButton.style.marginTop = "-105px";
+    supprButton.style.marginLeft = "51px";
     supprButton.style.background = "black";
     supprButton.style.color = "white";
-    supprButton.style.fontSize = "12px";
+    supprButton.style.fontSize = "10px";
+    supprButton.style.display = "flex";
+    supprButton.style.justifyContent = "center";
+    supprButton.style.alignItems = "center";
     //supprButton.setAttribute("class", "corbeille")
     supprButton.id = modal.id;
           
@@ -250,9 +253,12 @@ depButton.style.zIndex = 1;
 depButton.style.position = "fixed";
 depButton.style.color = "white";
 depButton.style.background = "black";
-depButton.style.fontSize = "12px";
-depButton.style.marginLeft = "17px";
-depButton.style.marginTop = "2px";
+depButton.style.fontSize = "11px";
+depButton.style.marginLeft = "28px";
+depButton.style.marginTop = "4px";
+depButton.style.display = "flex";
+depButton.style.justifyContent = "center";
+depButton.style.alignItems = "center";
 FirstImg.prepend(depButton);
 
 //Aperçu de la photo avant de l'ajouter.
