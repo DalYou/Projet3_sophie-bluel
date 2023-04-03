@@ -232,7 +232,7 @@ function deleteGallery() {
           "Content-type": "application/json charset=UTF-8",
         }, 
       }).then(async(response) => {
-        alert("Projet supprimer");
+        alert("Projet supprimé");
         document.querySelector(".gallery").innerHTML = "";
         const works = await fetch("http://localhost:5678/api/works");
         const jsonmodal = await works.json();
@@ -282,72 +282,87 @@ imgInp.onchange = () => {
 };
 
 //Ajouter des elements dans la modale 2
-const sectionModal = document.querySelector(".modal-wrapper");
-const formulairePhoto = document.getElementById("btnvalider");
-const addImage = document.querySelector("#imgInp");
-const addTitre = document.getElementById("title");
-const addCategory = document.getElementById("category");
+function genererImage () {
+  const sectionModal = document.querySelector(".modal-wrapper");
+  const formulairePhoto = document.getElementById("btnvalider");
+  const addImage = document.querySelector("#imgInp");
+  const addTitre = document.getElementById("title");
+  const addCategory = document.getElementById("category");
 
-formulairePhoto.addEventListener("click", async function (e) {
-  e.preventDefault();
-   // Image et un titre ont été ajoutés ?
-  if (!addImage.value || !addTitre.value) {
-    alert("Veuillez ajouter une image et un titre.");
-    return;   
-  } else {
-    formulairePhoto.style.background ="#1D6154"; 
-  }
-
-  console.log(addImage.files[0]);
-  console.log(addImage.files[0].name);
-  const formData = new FormData();
-  formData.append("image", addImage.files[0], addImage.files[0].name);
-  formData.append("title", addTitre.value);
-  formData.append("category", addCategory.value);
-  console.log(formData);
-  await fetch("http://localhost:5678/api/works", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
-    body: formData,
-  }).then(async (response) => {
-    if (response.ok) {
-      alert("Document ajouté");
-      //vider le formulaire
-      const form = document.getElementById('form');
-      form.reset();
-
-      // Réinitialiser l'aperçu de l'image de la première image
-      if (addImage.files && addImage.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          console.log(e);
-          console.log(e.target.result);
-          blah.src = e.target.result;
-          montrer.style.display = "block";
-          apercu.style.display = "none";
-        };
-        reader.readAsDataURL(addImage.files[0]);
-      } else {
-        blah.src = "";
-        montrer.style.display = "";
-        apercu.style.display = "";
-      }
-      //apparition de l'élément
-      document.querySelector(".galleryeditor").innerHTML= "";
-      const works = await fetch("http://localhost:5678/api/works");
-      const articles = await works.json();
-      genererArticles(articles);
-      genererModal(articles);
-      
-    } else {
-      alert("Attention vous n'avez pas sélectionné de catégorie !");
+  formulairePhoto.addEventListener("click", async function (e) {
+    e.preventDefault();
+    // Image et un titre ont été ajoutés ?
+    if (!addImage.value || !addTitre.value) {
+      alert("Veuillez ajouter une image et un titre.");
+      return;    
     }
-  });
+
+    console.log(addImage.files[0]);
+    console.log(addImage.files[0].name);
+    const formData = new FormData();
+    formData.append("image", addImage.files[0], addImage.files[0].name);
+    formData.append("title", addTitre.value);
+    formData.append("category", addCategory.value);
+    console.log(formData);
+    await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: formData,
+    }).then(async (response) => {
+      if (response.ok) {
+        alert("Document ajouté");
+        //vider le formulaire
+        const form = document.getElementById('form');
+        form.reset();
+
+        // Réinitialiser l'aperçu de l'image de la première image
+        if (addImage.files && addImage.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            console.log(e);
+            console.log(e.target.result);
+            blah.src = e.target.result;
+            montrer.style.display = "block";
+            apercu.style.display = "none";
+          };
+          reader.readAsDataURL(addImage.files[0]);
+        } else {
+          blah.src = "";
+          montrer.style.display = "";
+          apercu.style.display = "";
+        }
+        //apparition de l'élément
+        // document.querySelector(".galleryeditor").innerHTML= "";
+        // const works = await fetch("http://localhost:5678/api/works");
+        // const articles = await works.json();
+        // genererArticles(articles);
+        // genererModal(articles);
+        
+      } else {
+        alert("Attention vous n'avez pas sélectionné de catégorie !");
+      }
+    });
 });
+};
 
+genererImage ();
 
+function verif () {
+  const formulairePhoto = document.getElementById("btnvalider");
+  const addImage = document.querySelector("#imgInp");
+  const addTitre = document.getElementById("title");
+  const addCategory = document.getElementById("category");
+
+    if (!addImage.value) {
+      formulairePhoto.className = "#btnvalider";
+    }else {
+      formulairePhoto.className = ".validermodif";
+    };
+};
+
+verif();
 
 
 
