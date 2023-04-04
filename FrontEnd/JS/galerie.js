@@ -115,40 +115,46 @@ function genererModal(jsonGallery) {
   const divGalleryModal = document.querySelector(".galleryeditor");
   divGalleryModal.innerHTML = ""
   for (let i = 0; i < jsonGallery.length; i++) {
-	  const modal = jsonGallery[i];	  
-	  const figureElement= document.createElement("figure");
+	  const modal = jsonGallery[i];    
+    const figureElement= document.createElement("figure");
     figureElement.style.width = '70px';
-    figureElement.style.height = '110px';	  
-	  figureElement.classList.add("modal_figure");
+    figureElement.style.height = '110px';
+    figureElement.style.position = 'relative';
+    figureElement.style.marginRight = "9px"      
+    figureElement.classList.add("modal_figure");
+    figureElement.id = modal.id;
     const imageElement = document.createElement("img");
-	  imageElement.src = modal.imageUrl;
+    imageElement.src = modal.imageUrl;
     imageElement.crossOrigin = "anonymous";
-	  imageElement.alt = modal.title;
+    imageElement.alt = modal.title;
     imageElement.style.width = '100%';
     imageElement.style.objectFit = 'cover';
-	  const descriptionElement = document.createElement("figcaption");
-	  descriptionElement.innerText = 'éditer';
+    const descriptionElement = document.createElement("figcaption");
+    descriptionElement.innerText = 'éditer';
     const supprButton = document.createElement("i");
     supprButton.classList.add('fa-solid', 'fa-trash-can', 'corbeille');
     supprButton.style.width = "15px";
     supprButton.style.height = "13px";
-    supprButton.style.zIndex = 1;
-    supprButton.style.position = "fixed";
-    supprButton.style.marginTop = "-105px";
-    supprButton.style.marginLeft = "51px";
+    //supprButton.style.zIndex = 1;
+    supprButton.style.position = "absolute";
+    //supprButton.style.marginTop = "-105px";
+    //supprButton.style.marginLeft = "51px";
     supprButton.style.background = "black";
+    supprButton.style.top = "0";
+    supprButton.style.right = "0";
     supprButton.style.color = "white";
+    supprButton.style.margin = "5px";
     supprButton.style.fontSize = "10px";
     supprButton.style.display = "flex";
     supprButton.style.justifyContent = "center";
     supprButton.style.alignItems = "center";
     //supprButton.setAttribute("class", "corbeille")
-    supprButton.id = modal.id;
+    //supprButton.id = modal.id;
           
     divGalleryModal.appendChild(figureElement);    
     figureElement.appendChild(imageElement);
     figureElement.appendChild(descriptionElement);
-    figureElement.appendChild(supprButton);  
+    figureElement.appendChild(supprButton);
   };
   deleteGallery();
 };
@@ -223,7 +229,7 @@ function deleteGallery() {
   const corbeille = document.querySelectorAll(".corbeille");
   corbeille.forEach(function (corbeille) {
     corbeille.addEventListener("click",function(e){
-      let id = e.target.id
+      let id = e.target.parentNode.id
       fetch(`http://localhost:5678/api/works/${id}` , {
         method: "DELETE",
         body: null,
@@ -233,11 +239,7 @@ function deleteGallery() {
         }, 
       }).then(async(response) => {
         alert("Projet supprimé");
-        document.querySelector(".gallery").innerHTML = "";
-        const works = await fetch("http://localhost:5678/api/works");
-        const jsonmodal = await works.json();
-        genererProjets(jsonmodal);
-        genererModal(jsonmodal);
+        corbeille.parentNode.remove ();
       });
     })
   })
@@ -334,11 +336,12 @@ function genererImage () {
           apercu.style.display = "";
         }
         //apparition de l'élément
-        // document.querySelector(".galleryeditor").innerHTML= "";
-        // const works = await fetch("http://localhost:5678/api/works");
-        // const articles = await works.json();
-        // genererArticles(articles);
-        // genererModal(articles);
+        //document.querySelector(".galleryeditor").innerHTML= "";
+        //const works = await fetch("http://localhost:5678/api/works");
+        //const articles = await works.json();
+        //genererArticles();
+        //genererModal();
+        //returnModal ();
         
       } else {
         alert("Attention vous n'avez pas sélectionné de catégorie !");

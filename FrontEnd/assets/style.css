@@ -429,9 +429,9 @@ hr {
 
 .galleryeditor {
 	display: flex;
+	flex-direction: row;
     flex-wrap: wrap;
 	margin: 9px 111px 18px 111px;
-	justify-content: space-between;
 }
 
 /**Modal 2 Formulaire**/
