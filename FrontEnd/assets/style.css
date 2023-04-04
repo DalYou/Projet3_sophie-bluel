@@ -162,9 +162,11 @@ margin: auto;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
+
 #contact label {
 	margin: 2em 0 1em 0;
 }
+
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -194,7 +196,9 @@ footer nav ul {
 a {
 	text-decoration: none;
 	color: black;
+	font-size: 14px;
 }
+
 .button {
     display: flex;
 	flex-wrap: wrap;
@@ -212,6 +216,8 @@ a {
 	padding: 10px;
 	margin-right: 10px;
 	cursor: pointer;
+	font-family: 'Syne';
+	font-size: 16px;
 }
 
 .button .btn_trier1:hover{
@@ -232,6 +238,8 @@ a {
 	padding: 10px;
 	margin-right: 10px;
 	cursor: pointer;
+	font-family: 'Syne';
+	font-size: 16px;
 }
 
 /***Login***/
@@ -391,15 +399,16 @@ h5 {
 }
 
 .js-modal-close {
-	margin-right: 10px;
+	margin-right: 20px;
     font-size: 15px;
 	display: flex;
     justify-content: flex-end;
+	cursor: pointer;
 }
 
 .navmodal i {
 	font-size: 15px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 hr {
@@ -506,6 +515,19 @@ display : flex;
     color: white;
 }
 
+.validermodif {
+	background-color: #1D6154;
+    border-radius: 60px;
+    border: none;
+    border-top: 1px solid #B3B3B3;
+    padding: 10px;
+    width: 41%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    color: white;
+}
+
 .hrmodal2 {
 	width: 68%;
     margin-top: 39px;
@@ -515,7 +537,7 @@ display : flex;
   display: flex;
   flex-direction: column;
   background: #e8f1f6;
-  height: 169px;
+  height: 171px;
   width: 420px;
   align-items: center;
   justify-content: space-evenly;
@@ -583,7 +605,8 @@ display : flex;
 
 .blah {
 	object-fit: cover;
-    max-width: 126px;
+    max-width: 127px;
+    max-height: 170px;
 }
 
 .barrepub {
