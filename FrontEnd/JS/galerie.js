@@ -11,11 +11,13 @@ console.log(jsonGallery);
 try{
   const token = JSON.parse(localStorage.getItem("bearer"));
   const connecte = token ? "flex" : "none";
+  const tri_fetch = token ? "none" : "flex";
   document.querySelectorAll(".connecte").forEach((element) => {
     element.style.display = connecte;
   })
-  }catch (error){
- console.error(error);
+  document.querySelector("#buttontrie").style.display = tri_fetch; //Affichage des buttons de trie
+}catch (error){
+  console.error(error);
 }
 
 //Déclaration de la fonction générer la gallerie page index
@@ -79,17 +81,6 @@ boutonHotelsRestaurants.addEventListener("click", function () {
   genererProjets(filtreHotelsRestaurants);
 });
 
-
-//Affichage des buttons de trie
-function Trie() {
-    if(localStorage.getItem("token")) {
-      const buttontrie = document.querySelector("#buttontrie");
-        buttontrie.style.display = "none";
-    }
-}
-
-Trie ();
-
 // Déconnexion au clic sur le bouton logout
 document.addEventListener("click", function (event) {
   if (event.target.matches("#logout")) {
@@ -135,10 +126,7 @@ function genererModal(jsonGallery) {
     supprButton.classList.add('fa-solid', 'fa-trash-can', 'corbeille');
     supprButton.style.width = "15px";
     supprButton.style.height = "13px";
-    //supprButton.style.zIndex = 1;
     supprButton.style.position = "absolute";
-    //supprButton.style.marginTop = "-105px";
-    //supprButton.style.marginLeft = "51px";
     supprButton.style.background = "black";
     supprButton.style.top = "0";
     supprButton.style.right = "0";
@@ -148,8 +136,6 @@ function genererModal(jsonGallery) {
     supprButton.style.display = "flex";
     supprButton.style.justifyContent = "center";
     supprButton.style.alignItems = "center";
-    //supprButton.setAttribute("class", "corbeille")
-    //supprButton.id = modal.id;
           
     divGalleryModal.appendChild(figureElement);    
     figureElement.appendChild(imageElement);
