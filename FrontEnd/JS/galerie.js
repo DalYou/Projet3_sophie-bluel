@@ -321,13 +321,6 @@ function genererImage () {
           montrer.style.display = "";
           apercu.style.display = "";
         }
-        //apparition de l'élément
-        //document.querySelector(".galleryeditor").innerHTML= "";
-        //const works = await fetch("http://localhost:5678/api/works");
-        //const articles = await works.json();
-        //genererArticles();
-        //genererModal();
-        //returnModal ();
         
       } else {
         alert("Attention vous n'avez pas sélectionné de catégorie !");
@@ -338,20 +331,6 @@ function genererImage () {
 
 genererImage ();
 
-function verif () {
-  const formulairePhoto = document.getElementById("btnvalider");
-  const addImage = document.querySelector("#imgInp");
-  const addTitre = document.getElementById("title");
-  const addCategory = document.getElementById("category");
-
-    if (!addImage.value) {
-      formulairePhoto.className = "#btnvalider";
-    }else {
-      formulairePhoto.className = ".validermodif";
-    };
-};
-
-verif();
 
 
 
