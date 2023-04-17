@@ -108,7 +108,6 @@ function updatedisplayGalleryEdit(projet) {
                             right: 0px; color: white; margin: 5px; font-size: 10px; display: flex; justify-content: center; align-items: center;"></i>`
 
   document.querySelector(".galleryeditor").appendChild(projetElement);
-  //projetElement.appendChild(supprButton);
   deleteGallery();
 }
 
@@ -245,9 +244,6 @@ function deleteGallery() {
   corbeilles.forEach( (corbeille) => {
     corbeille.addEventListener("click",function(e){
       let id = e.target.parentNode.id
-      //corbeille.parentNode.remove ();
-      //alert(id);
-      //alert(id);
       fetch(`http://localhost:5678/api/works/${id}` , {
         method: "DELETE",
         headers: {
@@ -256,7 +252,6 @@ function deleteGallery() {
         }, 
       }).then(response => {
         if (response.ok) {
-          //corbeille.parentNode.remove ();
           alert("Projet supprimé");
           e.target.closest("figure").remove();
           document.querySelector("#figure-" + id).remove();
