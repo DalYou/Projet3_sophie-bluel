@@ -1,8 +1,7 @@
-const categories = "http://localhost:5678/api/categories"
-const Login = "http://localhost:5678/api/users/login"
+const categories = "http://localhost:5678/api/categories";
+const Login = "http://localhost:5678/api/users/login";
 let categoryId = 0;
 
-// Récupération de la galerie depuis le BackEnd 
 const works = await fetch("http://localhost:5678/api/works");
 const jsonGallery = await works.json();
 console.log(jsonGallery);
@@ -26,7 +25,9 @@ function genererProjets(jsonGallery) {
   divGallery.innerHTML = ""
   for (let i = 0; i < jsonGallery.length; i++) {
 	  const projet = jsonGallery[i];	  
-	  const figureElement= document.createElement("figure");	  
+	  const figureElement= document.createElement("figure");
+    figureElement.setAttribute("id", "figure-" + projet.id);	
+    //figureElement.id = projet.id;  
 	  const imageElement = document.createElement("img");
 	  imageElement.src = projet.imageUrl;
     imageElement.crossOrigin = "anonymous";
@@ -40,8 +41,82 @@ function genererProjets(jsonGallery) {
   }
 }
 
+//Affichage de la gallerie dans la Modale 
+function genererModal(jsonGallery) {
+  const divGalleryModal = document.querySelector(".galleryeditor");
+  divGalleryModal.innerHTML = ""
+  for (let i = 0; i < jsonGallery.length; i++) {
+	  const modal = jsonGallery[i];    
+    const figureElement= document.createElement("figure");
+    figureElement.style.width = '70px';
+    figureElement.style.height = '110px';
+    figureElement.style.position = 'relative';
+    figureElement.style.marginRight = "9px"      
+    figureElement.classList.add("modal_figure");
+    figureElement.id = modal.id;
+    const imageElement = document.createElement("img");
+    imageElement.src = modal.imageUrl;
+    imageElement.crossOrigin = "anonymous";
+    imageElement.alt = modal.title;
+    imageElement.style.width = '100%';
+    imageElement.style.objectFit = 'cover';
+    const descriptionElement = document.createElement("figcaption");
+    descriptionElement.innerText = 'éditer';
+    const supprButton = document.createElement("i");
+    supprButton.classList.add('fa-solid', 'fa-trash-can', 'corbeille');
+    supprButton.style.width = "15px";
+    supprButton.style.height = "13px";
+    supprButton.style.position = "absolute";
+    supprButton.style.background = "black";
+    supprButton.style.top = "0";
+    supprButton.style.right = "0";
+    supprButton.style.color = "white";
+    supprButton.style.margin = "5px";
+    supprButton.style.fontSize = "10px";
+    supprButton.style.display = "flex";
+    supprButton.style.justifyContent = "center";
+    supprButton.style.alignItems = "center";
+          
+    divGalleryModal.appendChild(figureElement);    
+    figureElement.appendChild(imageElement);
+    figureElement.appendChild(descriptionElement);
+    figureElement.appendChild(supprButton);
+  };
+  deleteGallery();
+};
+
+function updateDisplayImage(projet) {
+  const projetElement = document.createElement("figure");
+  projetElement.setAttribute("id", "figure-" + projet.id)
+  projetElement.innerHTML = `<img src="${projet.imageUrl}" alt="${projet.title}" crossorigin="anonymous" >
+          <figcaption>${projet.title}</figcaption>`
+  document.querySelector(".gallery").appendChild(projetElement);
+  console.log('projet dans DOM')
+}
+
+function updatedisplayGalleryEdit(projet) {
+  const projetElement = document.createElement("figure");
+  projetElement.style.width = '70px';
+  projetElement.style.height = '110px';
+  projetElement.style.position = 'relative';
+  projetElement.style.marginRight = "9px"      
+  projetElement.classList.add("modal_figure");
+  projetElement.setAttribute("id", projet.id)
+  projetElement.innerHTML = `<img src="${projet.imageUrl}" alt="${projet.title}" crossorigin="anonymous" style="width: 100%; objectFit: cover;">
+                            <figcaption>Editer</figcaption>
+                            <i class="fa-solid fa-trash-can corbeille" style="width: 15px; height: 13px; position: absolute; background: black; top: 0px; 
+                            right: 0px; color: white; margin: 5px; font-size: 10px; display: flex; justify-content: center; align-items: center;"></i>`
+
+  document.querySelector(".galleryeditor").appendChild(projetElement);
+  //projetElement.appendChild(supprButton);
+  deleteGallery();
+}
+
 // Appel de la fonction "genererProjets"
 genererProjets(jsonGallery);
+genererModal(jsonGallery);
+AdminMode();  
+
 
 //Trie des boutons
 const boutonTous = document.querySelector("#btntous");
@@ -99,53 +174,7 @@ function AdminMode() {
   };
 };
 
-AdminMode();
 
-//Affichage de la gallerie dans la Modale 
-function genererModal(jsonGallery) {
-  const divGalleryModal = document.querySelector(".galleryeditor");
-  divGalleryModal.innerHTML = ""
-  for (let i = 0; i < jsonGallery.length; i++) {
-	  const modal = jsonGallery[i];    
-    const figureElement= document.createElement("figure");
-    figureElement.style.width = '70px';
-    figureElement.style.height = '110px';
-    figureElement.style.position = 'relative';
-    figureElement.style.marginRight = "9px"      
-    figureElement.classList.add("modal_figure");
-    figureElement.id = modal.id;
-    const imageElement = document.createElement("img");
-    imageElement.src = modal.imageUrl;
-    imageElement.crossOrigin = "anonymous";
-    imageElement.alt = modal.title;
-    imageElement.style.width = '100%';
-    imageElement.style.objectFit = 'cover';
-    const descriptionElement = document.createElement("figcaption");
-    descriptionElement.innerText = 'éditer';
-    const supprButton = document.createElement("i");
-    supprButton.classList.add('fa-solid', 'fa-trash-can', 'corbeille');
-    supprButton.style.width = "15px";
-    supprButton.style.height = "13px";
-    supprButton.style.position = "absolute";
-    supprButton.style.background = "black";
-    supprButton.style.top = "0";
-    supprButton.style.right = "0";
-    supprButton.style.color = "white";
-    supprButton.style.margin = "5px";
-    supprButton.style.fontSize = "10px";
-    supprButton.style.display = "flex";
-    supprButton.style.justifyContent = "center";
-    supprButton.style.alignItems = "center";
-          
-    divGalleryModal.appendChild(figureElement);    
-    figureElement.appendChild(imageElement);
-    figureElement.appendChild(descriptionElement);
-    figureElement.appendChild(supprButton);
-  };
-  deleteGallery();
-};
-  
-genererModal(jsonGallery);
 
 // mode fenêtre modale
 const modal1 = document.getElementById("modal1");
@@ -212,21 +241,31 @@ window.addEventListener("click", function (event) {
 });
 
 function deleteGallery() {
-  const corbeille = document.querySelectorAll(".corbeille");
-  corbeille.forEach(function (corbeille) {
+  const corbeilles = document.querySelectorAll(".corbeille");
+  corbeilles.forEach( (corbeille) => {
     corbeille.addEventListener("click",function(e){
       let id = e.target.parentNode.id
+      //corbeille.parentNode.remove ();
+      //alert(id);
+      //alert(id);
       fetch(`http://localhost:5678/api/works/${id}` , {
         method: "DELETE",
-        body: null,
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-type": "application/json charset=UTF-8",
+          "content-type": "application/json",
+          "authorization": "Bearer " + localStorage.token
         }, 
-      }).then(async(response) => {
-        alert("Projet supprimé");
-        corbeille.parentNode.remove ();
-      });
+      }).then(response => {
+        if (response.ok) {
+          //corbeille.parentNode.remove ();
+          alert("Projet supprimé");
+          e.target.closest("figure").remove();
+          document.querySelector("#figure-" + id).remove();
+        } else {
+            alert("La suppression a échoué.");
+        }
+    }).catch(error => {
+        console.error(error);
+    });
     })
   })
 }
@@ -298,9 +337,14 @@ function genererImage () {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: formData,
-    }).then(async (response) => {
-      if (response.ok) {
+    }).then(async (newProject) => {
+      if (newProject.ok) {
         alert("Document ajouté");
+        const jsonG = await newProject.json();
+
+        updateDisplayImage(jsonG);
+        updatedisplayGalleryEdit(jsonG)
+        
         //vider le formulaire
         const form = document.getElementById('form');
         form.reset();
